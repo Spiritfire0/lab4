@@ -1,5 +1,3 @@
-package src;
-
 import java.awt.*;
 
 abstract public class Car implements Movable {
