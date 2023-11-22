@@ -24,14 +24,12 @@ public class CarView extends JFrame{
 
     JPanel controlPanel = new JPanel();
 
-    JPanel gasPanel = new JPanel();
-    JSpinner gasSpinner = new JSpinner();
-    JSpinner brakeSpinner = new JSpinner();
+    JPanel gasBrakePanel = new JPanel();
+
+    JSpinner gasBrakeSpinner = new JSpinner();
     int gasAmount = 0;
     int brakeAmount = 0;
-    JLabel gasLabel = new JLabel("Amount of gas");
-    JLabel brakeLabel = new JLabel("Amount of brake");
-
+    JLabel gasBrakeLabel = new JLabel("Amount of gas/brake");
     JButton gasButton = new JButton("Gas");
     JButton brakeButton = new JButton("Brake");
     JButton turboOnButton = new JButton("Saab Turbo on");
@@ -64,24 +62,35 @@ public class CarView extends JFrame{
                         0, //min
                         100, //max
                         1);//step
-        gasSpinner = new JSpinner(spinnerModel);
-        brakeSpinner = new JSpinner(spinnerModel);
-        gasSpinner.addChangeListener(new ChangeListener() {
+        gasBrakeSpinner = new JSpinner(spinnerModel);
+        //brakeSpinner = new JSpinner(spinnerModel);
+        gasBrakeSpinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 gasAmount = (int) ((JSpinner)e.getSource()).getValue();
+                brakeAmount = (int) ((JSpinner)e.getSource()).getValue();
             }
         });
+        /*
         brakeSpinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 brakeAmount = (int) ((JSpinner)e.getSource()).getValue();
             }
         });
+         */
 
-        gasPanel.setLayout(new BorderLayout());
-        gasPanel.add(gasLabel, BorderLayout.PAGE_START);
-        gasPanel.add(gasSpinner, BorderLayout.PAGE_END);
+        gasBrakePanel.setLayout(new BorderLayout());
+        // Adds label for gas/brake (left of screen)
+        gasBrakePanel.add(gasBrakeLabel, BorderLayout.PAGE_START);
+        // Adds number input for gas/brake
+        gasBrakePanel.add(gasBrakeSpinner, BorderLayout.PAGE_END);
 
-        this.add(gasPanel);
+
+        //brakePanel.setLayout(new BorderLayout());
+        //brakePanel.add(brakeLabel, BorderLayout.PAGE_START);
+        //brakePanel.add(brakeSpinner, BorderLayout.PAGE_END);
+
+        this.add(gasBrakePanel);
+        //this.add(brakePanel);
 
         controlPanel.setLayout(new GridLayout(2,4));
 
@@ -115,8 +124,12 @@ public class CarView extends JFrame{
                 carC.gas(gasAmount);
             }
         });
-        brakeButton.addActionListener(new ActionListener());{ carC.brake(brakeAmount);
-        }
+        brakeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.brake(brakeAmount);
+            }
+        });
 
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();
