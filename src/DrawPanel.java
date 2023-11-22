@@ -14,7 +14,6 @@ public class DrawPanel extends JPanel {
     // Just a single image, TODO: Generalize
     HashMap<Car,BufferedImage> carToImage;
     // To keep track of a list of single cars position
-    Point carPoint = new Point();
     ArrayList<Car> cars;
 
     // Initializes the panel and reads the images
@@ -23,7 +22,7 @@ public class DrawPanel extends JPanel {
         this.cars = cars;
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
-        this.setBackground(Color.blue);
+        this.setBackground(Color.darkGray);
         // Print an error message in case file is not found with a try/catch block
         for (Car car : cars) {
             try {
