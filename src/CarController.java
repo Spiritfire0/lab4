@@ -77,8 +77,5 @@ public class CarController {
             car.stopEngine();
             car.turnLeft(Math.PI);
         }
-        if (car.getPosition()[1] <= 0 || car.getPosition()[1] >= frame.getBounds().height - width) {
-        //    car.stopEngine();
-        }
     }
 }
