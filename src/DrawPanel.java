@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.HashMap;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -11,13 +12,14 @@ import javax.swing.*;
 
 public class DrawPanel extends JPanel {
     // Just a single image, TODO: Generalize
-    Dictionary<Car,BufferedImage> carToImage;
+    HashMap<Car,BufferedImage> carToImage;
     // To keep track of a list of single cars position
     Point carPoint = new Point();
     ArrayList<Car> cars;
 
     // Initializes the panel and reads the images
     public DrawPanel(int x, int y, ArrayList<Car> cars) {
+        this.carToImage = new HashMap<Car, BufferedImage>();
         this.cars = cars;
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
@@ -42,7 +44,7 @@ public class DrawPanel extends JPanel {
         for(Car car: cars) {
             int x = (int) Math.round(car.getPosition()[0]);
             int y = (int) Math.round(car.getPosition()[1]);
-            g.drawImage(carToImage.get(car), x, y, null); // see javadoc for more info on the parameters
+            g.drawImage(carToImage.get(car), x, y + 100 * cars.indexOf(car), null); // see javadoc for more info on the parameters
         }
 
     }

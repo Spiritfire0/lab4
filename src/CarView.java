@@ -38,8 +38,8 @@ public class CarView extends JFrame{
     // Constructor
     public CarView(String framename, CarController cc) {
         this.carC = cc;
+        drawPanel  = new DrawPanel(X, Y-240,carC.cars);
         initComponents(framename);
-        this.drawPanel = new DrawPanel(X, Y-240,carC.cars);
     }
 
     // Sets everything in place and fits everything

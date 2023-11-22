@@ -14,7 +14,7 @@ public class Scania extends Car {
 
     @Override
     public void gas(double amount) { // throws TrailerNotDown {
-        if(trailerAngle > 0) {
+        if(trailerAngle >= 0) {
             super.gas(amount);
         } else {
            System.out.println("trailer is up by " + trailerAngle + " cannot start until lowered");
