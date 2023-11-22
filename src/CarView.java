@@ -19,13 +19,9 @@ public class CarView extends JFrame{
 
     // The controller member
     CarController carC;
-
     DrawPanel drawPanel = new DrawPanel(X, Y-240);
-
     JPanel controlPanel = new JPanel();
-
     JPanel gasBrakePanel = new JPanel();
-
     JSpinner gasBrakeSpinner = new JSpinner();
     int gasAmount = 0;
     int brakeAmount = 0;
@@ -36,7 +32,6 @@ public class CarView extends JFrame{
     JButton turboOffButton = new JButton("Saab Turbo off");
     JButton liftBedButton = new JButton("Scania Lift Bed");
     JButton lowerBedButton = new JButton("Lower Lift Bed");
-
     JButton startButton = new JButton("Start all cars");
     JButton stopButton = new JButton("Stop all cars");
 
@@ -63,20 +58,13 @@ public class CarView extends JFrame{
                         100, //max
                         1);//step
         gasBrakeSpinner = new JSpinner(spinnerModel);
-        //brakeSpinner = new JSpinner(spinnerModel);
+
         gasBrakeSpinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 gasAmount = (int) ((JSpinner)e.getSource()).getValue();
                 brakeAmount = (int) ((JSpinner)e.getSource()).getValue();
             }
         });
-        /*
-        brakeSpinner.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                brakeAmount = (int) ((JSpinner)e.getSource()).getValue();
-            }
-        });
-         */
 
         gasBrakePanel.setLayout(new BorderLayout());
         // Adds label for gas/brake (left of screen)
@@ -85,12 +73,7 @@ public class CarView extends JFrame{
         gasBrakePanel.add(gasBrakeSpinner, BorderLayout.PAGE_END);
 
 
-        //brakePanel.setLayout(new BorderLayout());
-        //brakePanel.add(brakeLabel, BorderLayout.PAGE_START);
-        //brakePanel.add(brakeSpinner, BorderLayout.PAGE_END);
-
         this.add(gasBrakePanel);
-        //this.add(brakePanel);
 
         controlPanel.setLayout(new GridLayout(2,4));
 
@@ -113,7 +96,7 @@ public class CarView extends JFrame{
 
         stopButton.setBackground(Color.red);
         stopButton.setForeground(Color.black);
-        stopButton.setPreferredSize(new Dimension(X/5-15,200));
+        stopButton.setPreferredSize(new Dimension(X/6-15,200));
         this.add(stopButton);
 
         // This actionListener is for the gas button only
@@ -124,6 +107,8 @@ public class CarView extends JFrame{
                 carC.gas(gasAmount);
             }
         });
+
+        // actionlistener for brake button
         brakeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
