@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,7 +46,8 @@ public class CarController {
                 car.move();
                 int x = (int) Math.round(car.getPosition()[0]);
                 int y = (int) Math.round(car.getPosition()[1]);
-                frame.drawPanel.moveit(x, y);
+                checkBorder(car);
+                //frame.drawPanel.moveit(car);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
             }
@@ -64,9 +64,20 @@ public class CarController {
     }
     void brake(int amount) {
         double brake = ((double) amount) / 100;
-        for (Car car : cars
-        ) {
-            car.brake(brake);
+        for (Car car : cars) {
+            car.brake(brake);}
+    }
+    public void checkBorder(Car car) {
+        int width = frame.drawPanel.carToImage.get(car).getWidth();
+        if ((car.getPosition()[0] >= frame.getBounds().width - width) && Math.cos(car.getDirection()) > 0 ||
+            (car.getPosition()[0] <= 0 && Math.cos(car.getDirection()) < 0))
+         {
+            car.stopEngine();
+            car.turnLeft(Math.PI);
+            // System.out.println(frame.drawPanel.volvoImage.getWidth());
+        }
+        if (car.getPosition()[1] <= 0 || car.getPosition()[1] >= frame.getBounds().height - width) {
+        //    car.stopEngine();
         }
     }
 }
