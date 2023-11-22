@@ -100,6 +100,66 @@ public class CarView extends JFrame{
         stopButton.setPreferredSize(new Dimension(X/6-15,200));
         this.add(stopButton);
 
+        liftBedButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for(Car car : carC.cars){
+                    if (car.getClass() == Scania.class){
+                        ((Scania) car).raiseTrailer(5);
+                    }
+                }
+
+            }
+        });
+
+        lowerBedButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for(Car car : carC.cars){
+                    if (car.getClass() == Scania.class){
+                        ((Scania) car).lowerTrailer(5);
+                    }
+                }
+            }
+        });
+
+        turboOnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (Car car : carC.cars) {
+                    if (car.getClass() == Saab95.class) {
+                        ((Saab95) car).setTurboOn();
+                    }
+                }
+            }
+        });
+        turboOffButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (Car car : carC.cars) {
+                    if (car.getClass() == Saab95.class) {
+                        ((Saab95) car).setTurboOff();
+                    }
+                }
+            }
+        });
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for(Car car : carC.cars) {
+                    car.startEngine();
+                }
+            }
+        });
+        stopButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for(Car car : carC.cars) {
+                    car.stopEngine();
+                }
+            }
+        });
+
         // This actionListener is for the gas button only
         // TODO: Create more for each component as necessary
         gasButton.addActionListener(new ActionListener() {
