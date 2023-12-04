@@ -19,7 +19,7 @@ public class DrawPanel extends JPanel {
     ComponentHolder componentHolder;
 
     // Initializes the panel and reads the images
-    public DrawPanel(int x, int y, ArrayList<Car> cars) {
+    public DrawPanel(int x, int y, ComponentHolder componentHolder) {
         this.carToImage = new HashMap<Car, BufferedImage>();
         this.componentHolder = componentHolder;
         this.setDoubleBuffered(true);
@@ -28,7 +28,8 @@ public class DrawPanel extends JPanel {
         // Print an error message in case file is not found with a try/catch block
         for (Car car : componentHolder.components) {
             try {
-                String imgPath = "pics/" + car.modelName + ".jpg";
+                String imgPath = "/pics/" + car.modelName + ".jpg";
+                System.out.println(imgPath);
                 carToImage.put(car, ImageIO.read(DrawPanel.class.getResourceAsStream(imgPath)));
 
             } catch (IOException ex) {
@@ -40,7 +41,7 @@ public class DrawPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for(Car car: cars) {
+        for(Car car: componentHolder.components) {
             int x = (int) Math.round(car.getPosition()[0]);
             int y = (int) Math.round(car.getPosition()[1]);
             g.drawImage(carToImage.get(car), x, y + 100 * componentHolder.components.indexOf(car), null); // see javadoc for more info on the parameters

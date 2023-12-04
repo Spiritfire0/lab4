@@ -25,7 +25,7 @@ public class CarController {
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
     // A list of cars, modify if needed
-    ArrayList<Car> cars = new ArrayList<>();
+    ComponentHolder componentHolder = new ComponentHolder();
 
     //methods:
 
@@ -49,7 +49,7 @@ public class CarController {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            for (Car car : cars) {
+            for (Car car : componentHolder.components) {
                 car.move();
                 int x = (int) Math.round(car.getPosition()[0]);
                 int y = (int) Math.round(car.getPosition()[1]);
