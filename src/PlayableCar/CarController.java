@@ -1,3 +1,7 @@
+package PlayableCar;
+
+import WhatIsACar.*;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -59,8 +63,7 @@ public class CarController {
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
-        for (Car car : cars
-                ) {
+        for (Car car : componentHolder.components) {
             car.gas(gas);
         }
     }

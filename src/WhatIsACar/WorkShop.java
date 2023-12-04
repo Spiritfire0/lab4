@@ -1,4 +1,4 @@
-
+package WhatIsACar;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -36,4 +36,4 @@ public class WorkShop<T> {
 }
 
 
-//Example: WorkShop<Car> shop = new WorkShop<Car>(new Point(1,1), 10);
+//Example: WhatIsACar.WorkShop<WhatIsACar.Car> shop = new WhatIsACar.WorkShop<WhatIsACar.Car>(new Point(1,1), 10);

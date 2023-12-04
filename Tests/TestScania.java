@@ -1,5 +1,6 @@
 
 
+import WhatIsACar.Scania;
 import org.junit.Before;
 import org.junit.Test;
 

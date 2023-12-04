@@ -1,5 +1,9 @@
 
 
+import WhatIsACar.Car;
+import WhatIsACar.Saab95;
+import WhatIsACar.Volvo240;
+import WhatIsACar.WorkShop;
 import org.junit.Before;
 import org.junit.Test;
 

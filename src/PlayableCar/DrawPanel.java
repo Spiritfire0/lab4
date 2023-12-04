@@ -1,10 +1,13 @@
+package PlayableCar;
+
+import WhatIsACar.Car;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
+import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -18,7 +21,7 @@ public class DrawPanel extends JPanel {
     // Initializes the panel and reads the images
     public DrawPanel(int x, int y, ArrayList<Car> cars) {
         this.carToImage = new HashMap<Car, BufferedImage>();
-        this.cars = cars;
+        this.componentHolder = componentHolder;
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.darkGray);

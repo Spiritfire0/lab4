@@ -1,4 +1,6 @@
 
+import WhatIsACar.Car;
+import WhatIsACar.Volvo240;
 import org.junit.Before;
 import org.junit.Test;
 
