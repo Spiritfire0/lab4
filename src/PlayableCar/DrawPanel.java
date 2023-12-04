@@ -16,7 +16,7 @@ import javax.swing.*;
 public class DrawPanel extends JPanel {
     HashMap<Car,BufferedImage> carToImage;
     // To keep track of a list of single cars position
-    ArrayList<Car> cars;
+    ComponentHolder componentHolder;
 
     // Initializes the panel and reads the images
     public DrawPanel(int x, int y, ArrayList<Car> cars) {
@@ -26,7 +26,7 @@ public class DrawPanel extends JPanel {
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.darkGray);
         // Print an error message in case file is not found with a try/catch block
-        for (Car car : cars) {
+        for (Car car : componentHolder.components) {
             try {
                 String imgPath = "pics/" + car.modelName + ".jpg";
                 carToImage.put(car, ImageIO.read(DrawPanel.class.getResourceAsStream(imgPath)));
@@ -43,7 +43,7 @@ public class DrawPanel extends JPanel {
         for(Car car: cars) {
             int x = (int) Math.round(car.getPosition()[0]);
             int y = (int) Math.round(car.getPosition()[1]);
-            g.drawImage(carToImage.get(car), x, y + 100 * cars.indexOf(car), null); // see javadoc for more info on the parameters
+            g.drawImage(carToImage.get(car), x, y + 100 * componentHolder.components.indexOf(car), null); // see javadoc for more info on the parameters
         }
 
     }

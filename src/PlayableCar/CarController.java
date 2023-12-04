@@ -6,11 +6,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-/*
+
+/**
 * This class represents the Controller part in the MVC pattern.
 * Its responsibilities are to listen to the View and responds in an appropriate manner by
 * modifying the model state and the updating the view.
- */
+ **/
 
 public class CarController {
     // member fields:
@@ -32,9 +33,9 @@ public class CarController {
         // Instance of this class
         CarController cc = new CarController();
 
-        cc.cars.add(new Volvo240());
-        cc.cars.add(new Saab95());
-        cc.cars.add(new Scania());
+        cc.componentHolder.addVolvo240();
+        cc.componentHolder.addSaab95();
+        cc.componentHolder.addScania();
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
@@ -69,7 +70,7 @@ public class CarController {
     }
     void brake(int amount) {
         double brake = ((double) amount) / 100;
-        for (Car car : cars) {
+        for (Car car : componentHolder.components) {
             car.brake(brake);}
     }
     public void checkBorder(Car car) {
