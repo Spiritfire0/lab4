@@ -9,8 +9,7 @@ public class Main {
         componentHolder.addFordL9000();
 
         // Instance of this class
-        DrawPanel dp = new DrawPanel(DrawWindow.getXSize(), DrawWindow.getYSize() - 240, componentHolder);
-
+        DrawPanel dp = new DrawPanel(DrawWindow.getXSize(), DrawWindow.getYSize()-240, componentHolder);
 
         // Start a new view and send a reference of self
         new DrawWindow("CarSim 1.0", dp);
