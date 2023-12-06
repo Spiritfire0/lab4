@@ -24,15 +24,15 @@ public class CarController {
     }
 
     // Calls the gas method for each car once
-    void gas(int amount) {
-        double gas = ((double) amount) / 100;
-        for (Car car : componentHolder.components) {
+    void gas(ArrayList<Car> cars) {
+        double gas = ((double) gasAmount) / 100;
+        for (Car car : cars) {
             car.gas(gas);
         }
     }
-    void brake(int amount) {
-        double brake = ((double) amount) / 100;
-        for (Car car : componentHolder.components) {
+    void brake(ArrayList<Car> cars) {
+        double brake = ((double) brakeAmount) / 100;
+        for (Car car : cars) {
             car.brake(brake);}
     }
 

@@ -1,5 +1,7 @@
 package PlayableCar;
 
+import WhatIsACar.Car;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -22,11 +24,10 @@ public class DrawWindow extends JFrame implements CarObserver{
     CarUpdate carUpdate;
     CarController carController;
     DrawPanel drawPanel;
+
     JPanel controlPanel = new JPanel();
     JPanel gasBrakePanel = new JPanel();
     JSpinner gasBrakeSpinner = new JSpinner();
-    int gasAmount = 0;
-    int brakeAmount = 0;
     JLabel gasBrakeLabel = new JLabel("Amount of gas/brake");
     JButton gasButton = new JButton("Gas");
     JButton brakeButton = new JButton("Brake");
@@ -48,6 +49,26 @@ public class DrawWindow extends JFrame implements CarObserver{
         initComponents(framename);
     }
 
+    public void update() {
+        for (Car car : drawPanel.componentHolder.components) {
+            car.move();
+            int x = (int) Math.round(car.getPosition()[0]);
+            int y = (int) Math.round(car.getPosition()[1]);
+            checkBorder(car);
+            // repaint() calls the paintComponent method of the panel
+            drawPanel.repaint();
+        }
+    }
+    public void checkBorder(Car car) {
+        int width = drawPanel.carToImage.get(car).getWidth();
+        if ((car.getPosition()[0] >= getBounds().width - width) && Math.cos(car.getDirection()) > 0 ||
+                (car.getPosition()[0] <= 0 && Math.cos(car.getDirection()) < 0))
+        {
+            car.stopEngine();
+            car.turnLeft(Math.PI);
+        }
+    }
+
     // Sets everything in place and fits everything
     private void initComponents(String title) {
 
@@ -67,8 +88,7 @@ public class DrawWindow extends JFrame implements CarObserver{
 
         gasBrakeSpinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                gasAmount = (int) ((JSpinner)e.getSource()).getValue();
-                brakeAmount = (int) ((JSpinner)e.getSource()).getValue();
+                carController.setGasBrakeAmount((int) ((JSpinner)e.getSource()).getValue());
             }
         });
 
@@ -108,60 +128,39 @@ public class DrawWindow extends JFrame implements CarObserver{
         liftBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for(Car car : carC.componentHolder.components){
-                    if (car.getClass() == Scania.class){
-                        ((Scania) car).raiseTrailer(5);
-                    }
-                }
-
+                carController.raiseTrailers(drawPanel.componentHolder.components);
             }
         });
 
         lowerBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for(Car car : carC.componentHolder.components){
-                    if (car.getClass() == Scania.class){
-                        ((Scania) car).lowerTrailer(5);
-                    }
-                }
+                carController.lowerTrailers(drawPanel.componentHolder.components);
             }
         });
 
         turboOnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (Car car : carC.componentHolder.components) {
-                    if (car.getClass() == Saab95.class) {
-                        ((Saab95) car).setTurboOn();
-                    }
-                }
+                carController.setTurbosOn(drawPanel.componentHolder.components);
             }
         });
         turboOffButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (Car car : carC.componentHolder.components) {
-                    if (car.getClass() == Saab95.class) {
-                        ((Saab95) car).setTurboOff();
-                    }
-                }
+                carController.setTurbosOff(drawPanel.componentHolder.components);
             }
         });
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for(Car car : carC.componentHolder.components) {
-                    car.startEngine();
-                }
+                carController.startEngines(drawPanel.componentHolder.components);
             }
         });
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for(Car car : carC.componentHolder.components) {
-                    car.stopEngine();
-                }
+                carController.stopEngines(drawPanel.componentHolder.components);
             }
         });
 
@@ -169,7 +168,7 @@ public class DrawWindow extends JFrame implements CarObserver{
         gasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.gas(gasAmount);
+                carController.gas(drawPanel.componentHolder.components);
             }
         });
 
@@ -177,7 +176,7 @@ public class DrawWindow extends JFrame implements CarObserver{
         brakeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.brake(brakeAmount);
+                carController.brake(drawPanel.componentHolder.components);
             }
         });
 

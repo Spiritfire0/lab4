@@ -21,9 +21,10 @@ public class DrawPanel extends JPanel {
     JFrame frame = new JFrame();
 
     // Initializes the panel and reads the images
-    public DrawPanel(int x, int y, ComponentHolder componentHolder) {
+    public DrawPanel(int x, int y, ComponentHolder ch) {
         this.carToImage = new HashMap<Car, BufferedImage>();
-        this.componentHolder = componentHolder;
+        this.componentHolder = ch;
+
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.darkGray);
