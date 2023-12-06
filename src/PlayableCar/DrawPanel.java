@@ -14,7 +14,7 @@ import javax.swing.*;
 // This panel represent the animated part of the view with the car images.
 
 public class DrawPanel extends JPanel {
-    HashMap<Car,BufferedImage> carToImage;
+    HashMap<String,BufferedImage> carToImage;
     // To keep track of a list of single cars position
     ComponentHolder componentHolder;
 
@@ -22,7 +22,7 @@ public class DrawPanel extends JPanel {
 
     // Initializes the panel and reads the images
     public DrawPanel(int x, int y, ComponentHolder ch) {
-        this.carToImage = new HashMap<Car, BufferedImage>();
+        this.carToImage = new HashMap<String, BufferedImage>();
         this.componentHolder = ch;
 
         this.setDoubleBuffered(true);

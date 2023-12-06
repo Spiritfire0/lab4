@@ -24,6 +24,7 @@ public class DrawWindow extends JFrame implements CarObserver{
     CarUpdate carUpdate;
     CarController carController;
     DrawPanel drawPanel;
+    ComponentHolder componentHolder;
 
     JPanel controlPanel = new JPanel();
     JPanel gasBrakePanel = new JPanel();
@@ -37,20 +38,29 @@ public class DrawWindow extends JFrame implements CarObserver{
     JButton lowerBedButton = new JButton("Lower Lift Bed");
     JButton startButton = new JButton("Start all cars");
     JButton stopButton = new JButton("Stop all cars");
+    JButton removeCarButton = new JButton("Remove car");
+    JButton addCarButton = new JButton("Add car");
 
     // Constructor
     public DrawWindow(String framename, DrawPanel dp) {
         this.drawPanel = dp;
         this.carController = new CarController();
         this.carUpdate = new CarUpdate();
-
+        this.componentHolder = dp.componentHolder;
         carUpdate.addObserver(this);
         //drawPanel  = new DrawPanel(X, Y-240,carC.componentHolder);
         initComponents(framename);
     }
 
+    public static int getXSize(){
+        return X;
+    }
+    public static int getYSize(){
+        return Y;
+    }
+
     public void update() {
-        for (Car car : drawPanel.componentHolder.components) {
+        for (Car car : componentHolder.components) {
             car.move();
             int x = (int) Math.round(car.getPosition()[0]);
             int y = (int) Math.round(car.getPosition()[1]);
@@ -109,6 +119,10 @@ public class DrawWindow extends JFrame implements CarObserver{
         controlPanel.add(brakeButton, 3);
         controlPanel.add(turboOffButton, 4);
         controlPanel.add(lowerBedButton, 5);
+
+        controlPanel.add(addCarButton, 6);
+        controlPanel.add(removeCarButton, 7);
+
         controlPanel.setPreferredSize(new Dimension((X/2)+4, 200));
         this.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
@@ -119,48 +133,59 @@ public class DrawWindow extends JFrame implements CarObserver{
         startButton.setPreferredSize(new Dimension(X/5-15,200));
         this.add(startButton);
 
-
         stopButton.setBackground(Color.red);
         stopButton.setForeground(Color.black);
         stopButton.setPreferredSize(new Dimension(X/6-15,200));
         this.add(stopButton);
 
+        addCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carController.addRandomCar();
+            }
+        });
+
+        removeCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carController.removeCar();}
+        });
+
         liftBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carController.raiseTrailers(drawPanel.componentHolder.components);
-            }
+                carController.raiseTrailers();}
         });
 
         lowerBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carController.lowerTrailers(drawPanel.componentHolder.components);
+                carController.lowerTrailers();
             }
         });
 
         turboOnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carController.setTurbosOn(drawPanel.componentHolder.components);
+                carController.setTurbosOn();
             }
         });
         turboOffButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carController.setTurbosOff(drawPanel.componentHolder.components);
+                carController.setTurbosOff();
             }
         });
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carController.startEngines(drawPanel.componentHolder.components);
+                carController.startEngines();
             }
         });
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carController.stopEngines(drawPanel.componentHolder.components);
+                carController.stopEngines();
             }
         });
 
@@ -168,7 +193,7 @@ public class DrawWindow extends JFrame implements CarObserver{
         gasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carController.gas(drawPanel.componentHolder.components);
+                carController.gas();
             }
         });
 
@@ -176,7 +201,7 @@ public class DrawWindow extends JFrame implements CarObserver{
         brakeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carController.brake(drawPanel.componentHolder.components);
+                carController.brake();
             }
         });
 

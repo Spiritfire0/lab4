@@ -2,7 +2,7 @@ package WhatIsACar;
 
 import java.awt.*;
 
-public class Scania extends Car {
+public class Scania extends Car implements CarWithTrailer{
     private double trailerAngle;
 
     public Scania() {
