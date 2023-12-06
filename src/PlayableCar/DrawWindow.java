@@ -130,12 +130,12 @@ public class DrawWindow extends JFrame implements CarObserver{
 
         startButton.setBackground(Color.blue);
         startButton.setForeground(Color.green);
-        startButton.setPreferredSize(new Dimension(X/5-15,200));
+        startButton.setPreferredSize(new Dimension(X/6-15,200));
         this.add(startButton);
 
         stopButton.setBackground(Color.red);
         stopButton.setForeground(Color.black);
-        stopButton.setPreferredSize(new Dimension(X/6-15,200));
+        stopButton.setPreferredSize(new Dimension(X/5-15,200));
         this.add(stopButton);
 
         addCarButton.addActionListener(new ActionListener() {

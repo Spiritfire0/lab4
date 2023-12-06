@@ -12,9 +12,7 @@ public class ComponentHolder {
     public void addSaab95(){
         components.add(CarFactory.createSaab95());
     }
-    public void addScania(){
-        components.add(CarFactory.createScania());
-    }
+    public void addScania(){addCar(CarFactory.createScania());}
     public void addFordL9000(){
         components.add(CarFactory.createFordL9000());
     }
