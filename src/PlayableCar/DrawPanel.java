@@ -29,11 +29,10 @@ public class DrawPanel extends JPanel {
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.darkGray);
         // Print an error message in case file is not found with a try/catch block
-        for (Car car : componentHolder.components) {
+        for (AvailableCars car : AvailableCars.values()) {
             try {
-                String imgPath = "/pics/" + car.modelName + ".jpg";
-                System.out.println(imgPath);
-                carToImage.put(car, ImageIO.read(DrawPanel.class.getResourceAsStream(imgPath)));
+                String imgPath = "/pics/" + car + ".jpg";
+                carToImage.put(car.toString(), ImageIO.read(DrawPanel.class.getResourceAsStream(imgPath)));
 
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -47,7 +46,7 @@ public class DrawPanel extends JPanel {
         for(Car car: componentHolder.components) {
             int x = (int) Math.round(car.getPosition()[0]);
             int y = (int) Math.round(car.getPosition()[1]);
-            g.drawImage(carToImage.get(car), x, y + 100 * componentHolder.components.indexOf(car), null);
+            g.drawImage(carToImage.get(car.modelName), x, y + 94 * componentHolder.components.indexOf(car), null);
             // see javadoc for more info on the parameters
         }
 

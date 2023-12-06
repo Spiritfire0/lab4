@@ -60,7 +60,7 @@ public class DrawWindow extends JFrame implements CarObserver{
         }
     }
     public void checkBorder(Car car) {
-        int width = drawPanel.carToImage.get(car).getWidth();
+        int width = drawPanel.carToImage.get(car.modelName).getWidth();
         if ((car.getPosition()[0] >= getBounds().width - width) && Math.cos(car.getDirection()) > 0 ||
                 (car.getPosition()[0] <= 0 && Math.cos(car.getDirection()) < 0))
         {

@@ -6,9 +6,10 @@ public class Main {
         componentHolder.addVolvo240();
         componentHolder.addSaab95();
         componentHolder.addScania();
+        componentHolder.addFordL9000();
 
         // Instance of this class
-        DrawPanel dp = new DrawPanel(800,560,componentHolder);
+        DrawPanel dp = new DrawPanel(DrawWindow.getXSize(), DrawWindow.getYSize() - 240, componentHolder);
 
 
         // Start a new view and send a reference of self

@@ -36,33 +36,33 @@ public class CarController {
             car.brake(brake);}
     }
 
-    void raiseTrailers(ArrayList<Car> cars) {
-        for(Car car : cars){
-            if (car.getClass() == Scania.class){
-                ((Scania) car).raiseTrailer(5);
+    void raiseTrailers() {
+        for(Car car : componentHolder.components){
+            if (car instanceof CarWithTrailer){
+                ((CarWithTrailer) car).raiseTrailer(5);
             }
         }
     }
-    void lowerTrailers(ArrayList<Car> cars) {
-        for(Car car : cars){
-            if (car.getClass() == Scania.class){
-                ((Scania) car).lowerTrailer(5);
-            }
-        }
-    }
-
-    void setTurbosOn(ArrayList<Car> cars) {
-        for (Car car : cars) {
-            if (car.getClass() == Saab95.class) {
-                ((Saab95) car).setTurboOn();
+    void lowerTrailers() {
+        for(Car car : componentHolder.components){
+            if (car instanceof CarWithTrailer){
+                ((CarWithTrailer) car).lowerTrailer(5);
             }
         }
     }
 
-    void setTurbosOff(ArrayList<Car> cars) {
-        for (Car car : cars) {
-            if (car.getClass() == Saab95.class) {
-                ((Saab95) car).setTurboOff();
+    void setTurbosOn() {
+        for (Car car : componentHolder.components) {
+            if (car instanceof CarWithTurbo) {
+                ((CarWithTurbo) car).setTurboOn();
+            }
+        }
+    }
+
+    void setTurbosOff() {
+        for (Car car : componentHolder.components) {
+            if (car instanceof CarWithTurbo) {
+                ((CarWithTurbo) car).setTurboOff();
             }
         }
     }
@@ -77,5 +77,39 @@ public class CarController {
         for(Car car : cars) {
             car.stopEngine();
         }
+    }
+    void addRandomCar() {
+        if(componentHolder.components.size() < 10){
+            double random = (Math.random()*AvailableCars.values().length);
+            addCarFromNumber((int) Math.round(random));
+        }
+        else
+            System.out.println("To many cars");
+    }
+    void addCarFromNumber(int x){
+        switch (x){
+            case 1:
+                componentHolder.addVolvo240();
+                break;
+            case 2:
+                componentHolder.addSaab95();
+                break;
+            case 3:
+                componentHolder.addScania();
+                break;
+            case 4:
+                componentHolder.addFordL9000();
+                break;
+
+
+        }
+    }
+    void removeCar(){
+        //remove last car from list
+        if(!componentHolder.components.isEmpty()){
+            componentHolder.components.remove(componentHolder.components.size() - 1);
+        }
+        else
+            System.out.println("No cars to remove");
     }
 }
