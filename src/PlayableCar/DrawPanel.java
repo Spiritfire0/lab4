@@ -46,7 +46,8 @@ public class DrawPanel extends JPanel {
         for(Car car: componentHolder.components) {
             int x = (int) Math.round(car.getPosition()[0]);
             int y = (int) Math.round(car.getPosition()[1]);
-            g.drawImage(carToImage.get(car), x, y + 100 * componentHolder.components.indexOf(car), null); // see javadoc for more info on the parameters
+            g.drawImage(carToImage.get(car), x, y + 100 * componentHolder.components.indexOf(car), null);
+            // see javadoc for more info on the parameters
         }
 
     }
