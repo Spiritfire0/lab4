@@ -2,11 +2,6 @@ package PlayableCar;
 
 import WhatIsACar.*;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
 /**
 * This class represents the Controller part in the MVC pattern.
 * Its responsibilities are to listen to the View and responds in an appropriate manner by
@@ -18,21 +13,27 @@ public class CarController {
     private int gasAmount = 0;
     private int brakeAmount = 0;
 
+    ComponentHolder componentHolder;
+
+    public CarController(ComponentHolder ch) {
+        this.componentHolder = ch;
+    }
+
     //methods:
     void setGasBrakeAmount(int amount) {
         gasAmount = brakeAmount = amount;
     }
 
     // Calls the gas method for each car once
-    void gas(ArrayList<Car> cars) {
+    void gas() {
         double gas = ((double) gasAmount) / 100;
-        for (Car car : cars) {
+        for (Car car : componentHolder.components) {
             car.gas(gas);
         }
     }
-    void brake(ArrayList<Car> cars) {
+    void brake() {
         double brake = ((double) brakeAmount) / 100;
-        for (Car car : cars) {
+        for (Car car : componentHolder.components) {
             car.brake(brake);}
     }
 
@@ -67,14 +68,14 @@ public class CarController {
         }
     }
 
-    void startEngines(ArrayList<Car> cars) {
-        for(Car car : cars) {
+    void startEngines() {
+        for(Car car : componentHolder.components) {
             car.startEngine();
         }
     }
 
-    void stopEngines(ArrayList<Car> cars) {
-        for(Car car : cars) {
+    void stopEngines() {
+        for(Car car : componentHolder.components) {
             car.stopEngine();
         }
     }

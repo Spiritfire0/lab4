@@ -44,7 +44,7 @@ public class DrawWindow extends JFrame implements CarObserver{
     // Constructor
     public DrawWindow(String framename, DrawPanel dp) {
         this.drawPanel = dp;
-        this.carController = new CarController();
+        this.carController = new CarController(dp.componentHolder);
         this.carUpdate = new CarUpdate();
         this.componentHolder = dp.componentHolder;
         carUpdate.addObserver(this);
@@ -66,8 +66,8 @@ public class DrawWindow extends JFrame implements CarObserver{
             int y = (int) Math.round(car.getPosition()[1]);
             checkBorder(car);
             // repaint() calls the paintComponent method of the panel
-            drawPanel.repaint();
         }
+        drawPanel.repaint();
     }
     public void checkBorder(Car car) {
         int width = drawPanel.carToImage.get(car.modelName).getWidth();
