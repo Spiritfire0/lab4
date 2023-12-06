@@ -15,50 +15,12 @@ import java.util.ArrayList;
 
 public class CarController {
     // member fields:
-
-    // The delay (ms) corresponds to 20 updates a sec (hz)
-    private final int delay = 50;
-    // The timer is started with a listener (see below) that executes the statements
-    // each step between delays.
-    private Timer timer = new Timer(delay, new TimerListener());
-
-    // The frame that represents this instance View of the MVC pattern
-    CarView frame;
-    // A list of cars, modify if needed
-    ComponentHolder componentHolder = new ComponentHolder();
+    private int gasAmount = 0;
+    private int brakeAmount = 0;
 
     //methods:
-
-    public static void main(String[] args) {
-        // Instance of this class
-        CarController cc = new CarController();
-
-        cc.componentHolder.addVolvo240();
-        cc.componentHolder.addSaab95();
-        cc.componentHolder.addScania();
-
-        // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0", cc);
-
-        // Start the timer
-        cc.timer.start();
-    }
-
-    /* Each step the TimerListener moves all the cars in the list and tells the
-    * view to update its images. Change this method to your needs.
-    * */
-    private class TimerListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            for (Car car : componentHolder.components) {
-                car.move();
-                int x = (int) Math.round(car.getPosition()[0]);
-                int y = (int) Math.round(car.getPosition()[1]);
-                checkBorder(car);
-                //frame.drawPanel.moveit(car);
-                // repaint() calls the paintComponent method of the panel
-                frame.drawPanel.repaint();
-            }
-        }
+    void setGasBrakeAmount(int amount) {
+        gasAmount = brakeAmount = amount;
     }
 
     // Calls the gas method for each car once
@@ -73,13 +35,47 @@ public class CarController {
         for (Car car : componentHolder.components) {
             car.brake(brake);}
     }
-    public void checkBorder(Car car) {
-        int width = frame.drawPanel.carToImage.get(car).getWidth();
-        if ((car.getPosition()[0] >= frame.getBounds().width - width) && Math.cos(car.getDirection()) > 0 ||
-            (car.getPosition()[0] <= 0 && Math.cos(car.getDirection()) < 0))
-         {
+
+    void raiseTrailers(ArrayList<Car> cars) {
+        for(Car car : cars){
+            if (car.getClass() == Scania.class){
+                ((Scania) car).raiseTrailer(5);
+            }
+        }
+    }
+    void lowerTrailers(ArrayList<Car> cars) {
+        for(Car car : cars){
+            if (car.getClass() == Scania.class){
+                ((Scania) car).lowerTrailer(5);
+            }
+        }
+    }
+
+    void setTurbosOn(ArrayList<Car> cars) {
+        for (Car car : cars) {
+            if (car.getClass() == Saab95.class) {
+                ((Saab95) car).setTurboOn();
+            }
+        }
+    }
+
+    void setTurbosOff(ArrayList<Car> cars) {
+        for (Car car : cars) {
+            if (car.getClass() == Saab95.class) {
+                ((Saab95) car).setTurboOff();
+            }
+        }
+    }
+
+    void startEngines(ArrayList<Car> cars) {
+        for(Car car : cars) {
+            car.startEngine();
+        }
+    }
+
+    void stopEngines(ArrayList<Car> cars) {
+        for(Car car : cars) {
             car.stopEngine();
-            car.turnLeft(Math.PI);
         }
     }
 }

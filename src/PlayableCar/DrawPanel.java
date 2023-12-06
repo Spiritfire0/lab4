@@ -18,6 +18,8 @@ public class DrawPanel extends JPanel {
     // To keep track of a list of single cars position
     ComponentHolder componentHolder;
 
+    JFrame frame = new JFrame();
+
     // Initializes the panel and reads the images
     public DrawPanel(int x, int y, ComponentHolder componentHolder) {
         this.carToImage = new HashMap<Car, BufferedImage>();

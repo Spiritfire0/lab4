@@ -16,12 +16,13 @@ import java.awt.event.ActionListener;
  * each of it's components.
  **/
 
-public class CarView extends JFrame{
+public class DrawWindow extends JFrame implements CarObserver{
     private static final int X = 800;
     private static final int Y = 800;
 
     // The controller member
-    CarController carC;
+    CarUpdate carUpdate;
+    CarController carController;
     DrawPanel drawPanel;
     JPanel controlPanel = new JPanel();
     JPanel gasBrakePanel = new JPanel();
@@ -39,9 +40,13 @@ public class CarView extends JFrame{
     JButton stopButton = new JButton("Stop all cars");
 
     // Constructor
-    public CarView(String framename, CarController cc) {
-        this.carC = cc;
-        drawPanel  = new DrawPanel(X, Y-240,carC.componentHolder);
+    public DrawWindow(String framename, DrawPanel dp) {
+        this.drawPanel = dp;
+        this.carController = new CarController();
+        this.carUpdate = new CarUpdate();
+
+        carUpdate.addObserver(this);
+        //drawPanel  = new DrawPanel(X, Y-240,carC.componentHolder);
         initComponents(framename);
     }
 
